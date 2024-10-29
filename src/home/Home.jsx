@@ -107,7 +107,7 @@ function Home() {
                 {/* Resume Button */}
                 <div className="mt-16">
                   <a
-                    href="/Portfolio/Gourav_Shintre_resume.pdf"
+                    href="/Gourav_Shintre_resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 bg-transparent hover:bg-opacity-90"
