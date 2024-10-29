@@ -1,0 +1,16 @@
+body {
+  font-family: 'Roboto', sans-serif; /* Change to a more appealing font */
+  background-color: #1a1a1a; /* Ensure readability */
+}
+
+h1, h2, p {
+  transition: transform 0.2s, color 0.2s; /* Smooth transition for text */
+}
+
+a {
+  transition: color 0.3s; /* Smooth transition for links */
+}
+
+a:hover {
+  color: #38b2a0; /* Change color on hover */
+}
