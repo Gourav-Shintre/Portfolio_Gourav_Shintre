@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import recipeImage from '../assets/recipeImage.png';
 import flickFinderImage from '../assets/FlickFinder.png';
 
+
 const projects = [
     {
         name: 'Recipe Management System',
@@ -33,7 +34,7 @@ const Project = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-800 to-black p-8 flex flex-col items-center">
+        <div className="min-h-screen bg-gradient-to-b from-gray-800 to-black p-8 flex flex-col items-center overflow-hidden">
   
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">

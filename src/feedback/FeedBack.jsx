@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,25 +6,28 @@ import { motion } from 'framer-motion';
 import emailjs from 'emailjs-com'; // Import emailjs
 
 function Feedback() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
+    setLoading(true);
     const emailData = {
-      from_name: data.name,      // Correct mapping for sender's name
-      reply_to: data.email,      // Use email as the reply-to
-      message: data.message,      // The message content
-      to_name: 'FlickFinder Support' // Optional recipient name for customization
+      from_name: data.name,
+      reply_to: data.email,
+      message: data.message,
+      to_name: 'FlickFinder Support',
     };
 
     emailjs.send(
-      'service_6imv41g',           // Your EmailJS service ID
-      'template_ze67z2s',          // Your EmailJS template ID
-      emailData,                   // Data matching template variables
-      'Z-9K9X0cPD_R5vW3t'          // Your EmailJS user ID
+      'service_6imv41g',
+      'template_ze67z2s',
+      emailData,
+      'Z-9K9X0cPD_R5vW3t'
     )
     .then((response) => {
       console.log('SUCCESS!', response.status, response.text);
@@ -40,15 +43,16 @@ function Feedback() {
         position: "top-right",
         autoClose: 3000,
       });
+    })
+    .finally(() => {
+      setLoading(false); // Reset loading state
     });
-};
-
-
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 to-black p-5">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 to-black p-5 overflow-hidden">
       <motion.div
-        className="w-full max-w-md"
+        className="w-full max-w-md max-h-[90vh] overflow-auto" // Set max height
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -102,6 +106,7 @@ function Feedback() {
               {...register("message", { 
                 required: 'This field is required',
                 minLength: { value: 10, message: 'Message should be at least 10 characters' },
+                maxLength: { value: 500, message: 'Message should not exceed 500 characters' },
               })}
             ></textarea>
             {errors.message && <p className="text-red-400 mt-2">{errors.message.message}</p>}
@@ -111,9 +116,10 @@ function Feedback() {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-transparent border-2 border-teal-500 text-teal-500 font-bold py-2 px-4 rounded-lg hover:bg-teal-500 hover:text-white transition duration-300 ease-in-out"
+              disabled={loading}
+              className={`bg-transparent border-2 border-teal-500 text-teal-500 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-teal-500 hover:text-white'}`}
             >
-              Submit
+              {loading ? 'Sending...' : 'Submit'}
             </button>
           </div>
         </form>
